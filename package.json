@@ -1,0 +1,17 @@
+{
+  "name": "songwhip-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-telegram-bot-api": "^0.51.0",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Dinislam Maushov",
+  "license": "ISC"
+}
