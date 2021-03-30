@@ -16,18 +16,28 @@ const bot = new TelegramBot(token, {polling: true});
 // var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
 
 const servicesRegex = [
-  /deezer.com/,
   /music.apple.com/,
   /music.yandex.com/,
   /open.spotify.com/
 ]
 
 const services = [
-  'itunes',
-  'spotify',
-  'yandex',
-  'youtube',
-  'deezer'
+  {
+    title: "Spotify",
+    name: 'spotify'
+  },
+  {
+    title: "Apple Music",
+    name: 'itunes'
+  },
+  {
+    title: "YouTube",
+    name: 'youtube'
+  },
+  {
+    title: "Yandex Music",
+    name: 'yandex'
+  },
 ]
 
 bot.on('message', (msg) => {
@@ -42,43 +52,12 @@ bot.on('message', (msg) => {
         const allLinks = res.data.data.links;
         const links = [];
 
-        Object.keys(allLinks).forEach(service => {
-          switch (service) {
-            case 'spotify': {
-              links.push({
-                name: 'Spotify',
-                url: allLinks.spotify[0].link,
-              })
-              break
-            }
-            case 'itunes': {
-              links.push({
-                name: 'Apple Music',
-                url: allLinks.itunes[0].link.replace('{country}', 'ru'),
-              })
-              break
-            }
-            case 'youtube': {
-              links.push({
-                name: 'YouTube',
-                url: allLinks.youtube[0].link,
-              })
-              break
-            }
-            case 'yandex': {
-              links.push({
-                name: 'Yandex Music',
-                url: allLinks.yandex[0].link,
-              })
-              break
-            }
-            case 'deezer': {
-              links.push({
-                name: 'Deezer',
-                url: allLinks.deezer[0].link,
-              })
-              break
-            }
+        services.forEach(service => {
+          if (allLinks[service.name]) {
+            links.push({
+              name: service.title,
+              url: service.name === 'itunes' ? allLinks.itunes[0].link.replace('{country}', 'ru'): allLinks[service.name][0].link,
+            })
           }
         })
 
