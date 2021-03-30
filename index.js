@@ -1,6 +1,6 @@
-// require('https').createServer().listen(process.env.PORT || 5000).on('request', function(req, res){
-//   res.end('')
-// });
+require('https').createServer().listen(process.env.PORT || 5000).on('request', function(req, res){
+  res.end('')
+});
 
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
@@ -9,12 +9,11 @@ const axios = require('axios');
 const token = '1723140864:AAGZMlFiJTSZqEc1wIH6LIt8ZUP2lKSmHsU';
 
 // Create a bot that uses 'polling' to fetch new updates
-// const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, {polling: true});
 
 var port = process.env.PORT || 8443;
 var host = process.env.HOST;
 var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
-
 const servicesRegex = [
   /deezer.com/,
   /music.apple.com/,
