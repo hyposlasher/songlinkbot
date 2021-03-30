@@ -40,7 +40,6 @@ bot.on('message', (msg) => {
     })
       .then(res => {
         const allLinks = res.data.data.links;
-
         const links = [];
 
         Object.keys(allLinks).forEach(service => {
@@ -57,24 +56,28 @@ bot.on('message', (msg) => {
                 name: 'Apple Music',
                 url: allLinks.itunes[0].link.replace('{country}', 'ru'),
               })
+              break
             }
             case 'youtube': {
               links.push({
                 name: 'YouTube',
                 url: allLinks.youtube[0].link,
               })
+              break
             }
             case 'yandex': {
               links.push({
                 name: 'Yandex Music',
                 url: allLinks.yandex[0].link,
               })
+              break
             }
             case 'deezer': {
               links.push({
                 name: 'Deezer',
                 url: allLinks.deezer[0].link,
               })
+              break
             }
           }
         })
