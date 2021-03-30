@@ -79,7 +79,7 @@ bot.on('message', (msg) => {
         // bot.sendMessage(chatId, message, {parse_mode: "HTML", disable_web_page_preview: true});
 
 
-        sendSong(chatId, msg, img, artist, song)
+        sendSong(chatId, img, artist, song)
       })
       .catch(function (error) {
         if (error.response) {
