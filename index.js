@@ -1,7 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 
-// https://open.spotify.com/track/6AmHrPtCtrsBOBedT7vh85?si=NB_-o52IS56kV_qLmzmwVA
+require('https').createServer().listen(process.env.PORT || 5000).on('request', function(req, res){
+  res.end('')
+});
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = '1776804283:AAGJurW-1maVSP7qgQfWvUzzSBpyihYeC9Q';
