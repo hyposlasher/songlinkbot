@@ -2,14 +2,16 @@ const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 
 // https://open.spotify.com/track/6AmHrPtCtrsBOBedT7vh85?si=NB_-o52IS56kV_qLmzmwVA
-var port = process.env.PORT || 8443;
-var host = process.env.HOST;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = '1776804283:AAGJurW-1maVSP7qgQfWvUzzSBpyihYeC9Q';
 
 // Create a bot that uses 'polling' to fetch new updates
-var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
+const bot = new TelegramBot(token, {polling: true});
 
 const servicesRegex = [
   /deezer.com/,
