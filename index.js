@@ -11,9 +11,10 @@ const token = '1723140864:AAGZMlFiJTSZqEc1wIH6LIt8ZUP2lKSmHsU';
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
-var port = process.env.PORT || 8443;
-var host = process.env.HOST;
-var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
+// var port = process.env.PORT || 8443;
+// var host = process.env.HOST;
+// var bot = new TelegramBot(token, {webHook: {port: port, host: host}});
+
 const servicesRegex = [
   /deezer.com/,
   /music.apple.com/,
