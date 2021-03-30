@@ -58,6 +58,7 @@ bot.on('message', (msg) => {
       .then(res => {
         const allLinks = res.data.data.links;
         const links = [];
+        const data = res.data.data;
 
         services.forEach(service => {
           if (allLinks[service.name]) {
@@ -68,11 +69,14 @@ bot.on('message', (msg) => {
           }
         })
 
-        const artist = `${res.data.data.artists[0].name} – <b>${res.data.data.name}</b>`;
+        const artist = `${data.artists[0].name} – <b>${data.name}</b>`;
         const urls = links.reduce((acc, link) => acc + `<a href='${link.url}'>${link.name}</a>\n`, '');
         const message = artist + "\n" + urls;
 
         bot.sendMessage(chatId, message, {parse_mode: "HTML", disable_web_page_preview: true});
+
+
+        sendSong(chatId, msg)
       })
       .catch(function (error) {
         if (error.response) {
@@ -92,16 +96,20 @@ bot.on('message', (msg) => {
   }
 });
 
-bot.onText(/\/sendpic/, (msg) => {
-
+function sendSong(chatId, pic, artist, songName, duration, album, year) {
   bot.sendPhoto(
-    msg.chat.id,
-    "https://is2-ssl.mzstatic.com/image/thumb/Music124/v4/3a/94/68/3a946811-6ab6-e0ec-1982-0b646534c35d/19UMGIM96748.rgb.jpg/1000x1000bb.jpeg",
+    chatId,
+    pic,
     {
       caption: 
-        `Tame Impala — One More Year | 5:24
-        
-        Album: The Slow Rush (2020)`
+        `${artist} — ${songName} | 5:24
+
+Album: ${album} (${year})`
     }
   );   
+}
+bot.onText(/test/, (msg) => {
+  sendTrack()
 });
+
+
