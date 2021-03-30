@@ -98,7 +98,10 @@ bot.onText(/\/sendpic/, (msg) => {
     msg.chat.id,
     "https://is2-ssl.mzstatic.com/image/thumb/Music124/v4/3a/94/68/3a946811-6ab6-e0ec-1982-0b646534c35d/19UMGIM96748.rgb.jpg/1000x1000bb.jpeg",
     {
-      caption: 'test'
+      caption: 
+        `Tame Impala — One More Year | 5:24
+
+        Album: The Slow Rush (2020)`
     }
   );   
 });
