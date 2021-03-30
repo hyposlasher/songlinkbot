@@ -19,10 +19,6 @@ const url = process.env.APP_URL || 'https://songlinkbot.herokuapp.com:443';
 
 const bot = new TelegramBot(TOKEN, options);
 
-bot.on('message', function onMessage(msg) {
-  bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
-});
-
 bot.setWebHook(`${url}/bot${TOKEN}`);
 
 const servicesRegex = [
