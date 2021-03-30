@@ -56,30 +56,32 @@ bot.on('message', (msg) => {
       url: msg.text
     })
       .then(res => {
-        // const allLinks = res.data.data.links;
-        // const links = [];
+        const allLinks = res.data.data.links;
+        const links = [];
         const data = res.data.data;
         const img = data.image;
         const artist = data.artists[0].name;
         const song = data.name;
 
-        // services.forEach(service => {
-        //   if (allLinks[service.name]) {
-        //     links.push({
-        //       name: service.title,
-        //       url: service.name === 'itunes' ? allLinks.itunes[0].link.replace('{country}', 'ru'): allLinks[service.name][0].link,
-        //     })
-        //   }
-        // })
+        services.forEach(service => {
+          if (allLinks[service.name]) {
+            links.push({
+              name: service.title,
+              url: service.name === 'itunes' ? allLinks.itunes[0].link.replace('{country}', 'ru'): allLinks[service.name][0].link,
+            })
+          }
+        })
 
-        // const artist = `${data.artists[0].name} – <b>${data.name}</b>`;
-        // const urls = links.reduce((acc, link) => acc + `<a href='${link.url}'>${link.name}</a>\n`, '');
-        // const message = artist + "\n" + urls;
+        const urls = links.reduce((acc, link, i) => {
+          if (i !== 0) {
+            return acc + ` | <a href='${link.url}'>${link.name}</a>`
+          }
 
-        // bot.sendMessage(chatId, message, {parse_mode: "HTML", disable_web_page_preview: true});
+          return acc + `<a href='${link.url}'>${link.name}</a>`
+          
+        }, '');
 
-
-        sendSong(chatId, img, artist, song)
+        sendSong(chatId, img, artist, song, urls)
       })
       .catch(function (error) {
         if (error.response) {
@@ -99,14 +101,16 @@ bot.on('message', (msg) => {
   }
 });
 
-function sendSong(chatId, pic, artist, songName) {
+function sendSong(chatId, pic, artist, songName, urls) {
   bot.sendPhoto(
     chatId,
     pic,
     {
+      parse_mode: "HTML",
       caption: 
-`${artist} — ${songName} | 5:24
-`
+`${artist} — <b>${songName}</b>
+
+${urls}`
     }
   );   
 }
