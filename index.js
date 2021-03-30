@@ -18,7 +18,8 @@ const bot = new TelegramBot(token, {polling: true});
 const servicesRegex = [
   /music.apple.com/,
   /music.yandex.com/,
-  /open.spotify.com/
+  /open.spotify.com/,
+  /youtube.com/
 ]
 
 const services = [
