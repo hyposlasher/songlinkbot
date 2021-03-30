@@ -9,7 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "logs": "heroku logs"
   },
   "author": "Dinislam Maushov",
   "license": "ISC"

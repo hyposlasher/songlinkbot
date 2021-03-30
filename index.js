@@ -1,15 +1,29 @@
-require('https').createServer().listen(process.env.PORT || 5000).on('request', function(req, res){
-  res.end('')
-});
-
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = '1723140864:AAGZMlFiJTSZqEc1wIH6LIt8ZUP2lKSmHsU';
+const TOKEN = '1723140864:AAGZMlFiJTSZqEc1wIH6LIt8ZUP2lKSmHsU';
 
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, {polling: true});
+const options = {
+  webHook: {
+    // Port to which you should bind is assigned to $PORT variable
+    // See: https://devcenter.heroku.com/articles/dynos#local-environment-variables
+    port: process.env.PORT
+    // you do NOT need to set up certificates since Heroku provides
+    // the SSL certs already (https://<app-name>.herokuapp.com)
+    // Also no need to pass IP because on Heroku you need to bind to 0.0.0.0
+  }
+};
+
+const url = process.env.APP_URL || 'https://songlinkbot.herokuapp.com:443';
+
+const bot = new TelegramBot(TOKEN, options);
+
+bot.on('message', function onMessage(msg) {
+  bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
+});
+
+bot.setWebHook(`${url}/bot${TOKEN}`);
 
 const servicesRegex = [
   /music.apple.com/,
@@ -69,7 +83,6 @@ bot.on('message', (msg) => {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           console.log('error.response.data:', error.response.data);
-          console.log('error.response.status:', error.response.status);
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
