@@ -22,6 +22,14 @@ const servicesRegex = [
   /open.spotify.com/
 ]
 
+const services = [
+  'itunes',
+  'spotify',
+  'yandex',
+  'youtube',
+  'deezer'
+]
+
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
@@ -33,28 +41,44 @@ bot.on('message', (msg) => {
       .then(res => {
         const allLinks = res.data.data.links;
 
-        const links = [
-          {
-            name: 'Spotify',
-            url: allLinks.spotify[0].link,
-          },
-          {
-            name: 'Apple Music',
-            url: allLinks.itunes[0].link.replace('{country}', 'ru'),
-          },
-          {
-            name: 'YouTube',
-            url: allLinks.youtube[0].link,
-          },
-          {
-            name: 'Yandex Music',
-            url: allLinks.yandex[0].link,
-          },
-          {
-            name: "Deezer",
-            url: allLinks.deezer[0].link
+        const links = [];
+
+        Object.keys(allLinks).forEach(service => {
+          switch (service) {
+            case 'spotify': {
+              links.push({
+                name: 'Spotify',
+                url: allLinks.spotify[0].link,
+              })
+              break
+            }
+            case 'itunes': {
+              links.push({
+                name: 'Apple Music',
+                url: allLinks.itunes[0].link.replace('{country}', 'ru'),
+              })
+            }
+            case 'youtube': {
+              links.push({
+                name: 'YouTube',
+                url: allLinks.youtube[0].link,
+              })
+            }
+            case 'yandex': {
+              links.push({
+                name: 'Yandex Music',
+                url: allLinks.yandex[0].link,
+              })
+            }
+            case 'deezer': {
+              links.push({
+                name: 'Deezer',
+                url: allLinks.deezer[0].link,
+              })
+            }
           }
-        ]
+        })
+
         const artist = `${res.data.data.artists[0].name} – <b>${res.data.data.name}</b>`;
         const urls = links.reduce((acc, link) => acc + `<a href='${link.url}'>${link.name}</a>\n`, '');
         const message = artist + "\n" + urls;
