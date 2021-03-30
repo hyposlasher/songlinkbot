@@ -100,7 +100,7 @@ bot.onText(/\/sendpic/, (msg) => {
     {
       caption: 
         `Tame Impala — One More Year | 5:24
-
+        
         Album: The Slow Rush (2020)`
     }
   );   
