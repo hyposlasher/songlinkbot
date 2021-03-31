@@ -82,12 +82,22 @@ bot.on('message', (msg) => {
         }, '');
 
         sendSong(chatId, img, artist, song, urls)
+        bot.sendMessage(msg.chat.id, 'Hello', {
+          reply_markup: {
+              inline_keyboard: [
+                  [{
+                      text: 'my button',
+                      url: 'www.somewhere.com'
+                  }]
+              ]
+          }
+      });
       })
       .catch(function (error) {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log('error.response.data: test', error.response.data);
+          console.log('error.response.data:', error.response.data);
         } else if (error.request) {
           // The request was made but no response was received
           // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
