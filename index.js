@@ -1,15 +1,13 @@
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 
-const TOKEN = '1723140864:AAGZMlFiJTSZqEc1wIH6LIt8ZUP2lKSmHsU';
-
 const options = {
   webHook: {
     port: process.env.PORT
   }
 };
 
-const url = process.env.APP_URL || 'https://songlinkbot.herokuapp.com:443';
+const url = process.env.APP_URL;
 
 const bot = new TelegramBot(TOKEN, options);
 
