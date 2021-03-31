@@ -47,24 +47,16 @@ const services = [
   },
 ]
 
-function sendSong(chatId, pic, artist, songName, urls) {
+function sendSong(chatId, pic, artist, songName, links) {
   bot.sendPhoto(
     chatId,
     pic,
     {
       reply_markup: {
-        inline_keyboard: [
-            [{
-                text: 'my button',
-                url: 'www.somewhere.com'
-            }]
-        ]
-    },
+        inline_keyboard: links.map(link => ([{ text: link.name, url: link.url}]))
+      },
       parse_mode: "HTML",
-      caption: 
-`${artist} — <b>${songName}</b>
-
-${urls}`
+      caption: `${artist} — <b>${songName}</b>`
     }
   );   
 }
@@ -94,16 +86,16 @@ bot.on('message', (msg) => {
           }
         })
 
-        const urls = links.reduce((acc, link, i) => {
-          if (i !== 0) {
-            return acc + ` | <a href='${link.url}'>${link.name}</a>`
-          }
+        // const urls = links.reduce((acc, link, i) => {
+        //   if (i !== 0) {
+        //     return acc + ` | <a href='${link.url}'>${link.name}</a>`
+        //   }
 
-          return acc + `<a href='${link.url}'>${link.name}</a>`
+        //   return acc + `<a href='${link.url}'>${link.name}</a>`
           
-        }, '');
+        // }, '');
 
-        sendSong(chatId, img, artist, song, urls);
+        sendSong(chatId, img, artist, song, links);
       })
       .catch(function (error) {
         if (error.response) {
