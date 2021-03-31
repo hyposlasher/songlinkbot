@@ -47,6 +47,28 @@ const services = [
   },
 ]
 
+function sendSong(chatId, pic, artist, songName, urls) {
+  bot.sendPhoto(
+    chatId,
+    pic,
+    {
+      reply_markup: {
+        inline_keyboard: [
+            [{
+                text: 'my button',
+                url: 'www.somewhere.com'
+            }]
+        ]
+    },
+      parse_mode: "HTML",
+      caption: 
+`${artist} — <b>${songName}</b>
+
+${urls}`
+    }
+  );   
+}
+
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
@@ -81,17 +103,7 @@ bot.on('message', (msg) => {
           
         }, '');
 
-        sendSong(chatId, img, artist, song, urls)
-        bot.sendMessage(msg.chat.id, 'Hello', {
-          reply_markup: {
-              inline_keyboard: [
-                  [{
-                      text: 'my button',
-                      url: 'www.somewhere.com'
-                  }]
-              ]
-          }
-      });
+        sendSong(chatId, img, artist, song, urls);
       })
       .catch(function (error) {
         if (error.response) {
@@ -111,21 +123,7 @@ bot.on('message', (msg) => {
   }
 });
 
-function sendSong(chatId, pic, artist, songName, urls) {
-  bot.sendPhoto(
-    chatId,
-    pic,
-    {
-      parse_mode: "HTML",
-      caption: 
-`${artist} — <b>${songName}</b>
 
-${urls}`
-    }
-  );   
-}
-bot.onText(/test/, (msg) => {
-  sendTrack()
-});
+
 
 
