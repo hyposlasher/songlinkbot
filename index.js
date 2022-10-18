@@ -18,6 +18,7 @@ bot.setWebHook(`${url}/bot${TOKEN}`);
 const servicesRegex = [
   /music.apple.com/,
   /music.yandex.com/,
+  /music.yandex.ru/,
   /open.spotify.com/,
   /youtube.com/
 ]
@@ -58,7 +59,8 @@ function sendSong(chatId, pic, artist, songName, links) {
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
-  if (servicesRegex.some(regex => regex.test(msg.text))) {   
+  if (servicesRegex.some(regex => regex.test(msg.text))) {  
+    console.log('received songlink: ', msg.text); 
     axios.post('https://songwhip.com/api/create', {
       country: "RU",
       url: msg.text
